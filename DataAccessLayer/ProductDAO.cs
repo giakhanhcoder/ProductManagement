@@ -37,12 +37,12 @@ namespace DataAccessLayer
             return listProducts;
         } */
 
-        public void SaveProduct(Product p)
+        public static void SaveProduct(Product p)
         {
             listProducts.Add(p);
         }
 
-        public void UpdateProduct(Product product)
+        public static void UpdateProduct(Product product)
         {
             foreach (Product p in listProducts.ToList())
             {
@@ -57,7 +57,7 @@ namespace DataAccessLayer
             }
         }
 
-        public void DeleteProduct(Product product)
+        public static void DeleteProduct(Product product)
         {
             foreach (Product p in listProducts.ToList())
             {
@@ -68,7 +68,7 @@ namespace DataAccessLayer
             }
         }
 
-        public Product GetProductById(int id)
+        public static Product GetProductById(int id)
         {
             foreach (Product p in listProducts)
             {
