@@ -26,3 +26,4 @@ namespace BusinessObjects
 
         public virtual ICollection<Product> Products { get; set; }
     }
+}

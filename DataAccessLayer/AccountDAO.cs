@@ -15,7 +15,7 @@ namespace DataAccessLayer
             if (accountID.Equals("PS0001")) // just for demonstration
             {
                 accountMember.MemberId = accountID;
-                accountMember.MemberPassword = "01";
+                accountMember.MemberPassword = "@1";
                 accountMember.MemberRole = 1;
             }
             return accountMember;
