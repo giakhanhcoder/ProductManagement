@@ -15,7 +15,7 @@ namespace BusinessObjects
         public Product(int id, string name, int catId,
             short unitInStock, decimal price)
         {
-            this.ProductId = id;
+            this.ProductId = id;    
             this.ProductName = name;
             this.CategoryId = catId;
             this.UnitInStock = unitInStock;

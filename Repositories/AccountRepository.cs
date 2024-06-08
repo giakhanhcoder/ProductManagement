@@ -10,7 +10,8 @@ namespace Repositories
 {
     public class AccountRepository : IAccountRepository
     {
-        public AccountMember GetAccountMemberById(string accountID)
+
+        public AccountMember GetAccountById(string accountID)
             => AccountDAO.GetAccountById(accountID);
     }
 }

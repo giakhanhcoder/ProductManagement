@@ -1,7 +1,9 @@
 ﻿using BusinessObjects;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,14 +11,16 @@ namespace DataAccessLayer
 {
     public class ProductDAO
     {
-        private static List<Product> listProducts;
+
+
+        public static List<Product> listProducts = new List<Product>();
 
         public ProductDAO()
         {
-            Product chai = new Product(1, "Chai", 3, 12, 18);   
-            Product chang = new Product(2, "Chang", 1, 23, 19);
-            Product aniseed = new Product(3, "Aniseed Syrup", 2, 23, 10);
-            listProducts = new List<Product> { chai, chang, aniseed};
+            Product chai = new Product(1, "Chai", 1, 39, 18);
+            Product chang = new Product(2, "Chang", 1, 17, 19);
+            Product aniseedSyrup = new Product(3, "Aniseed Syrup", 2, 13, 10);
+            listProducts = new List<Product>() { chai, chang, aniseedSyrup };
         }
 
         public static List<Product> GetProducts()
@@ -24,18 +28,22 @@ namespace DataAccessLayer
             return listProducts;
         }
 
+
         /* public static List<Product> GetProducts()
         {
             var listProducts = new List<Product>();
             try
             {
                 using var db = new MyStoreContext();
-                listProducts = db.Products.ToList();    
+                listProducts = db.Products.ToList();
             }
-            catch (Exception ex){ }
-
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
             return listProducts;
-        } */
+        }
+        */
 
         public static void SaveProduct(Product p)
         {
@@ -46,7 +54,7 @@ namespace DataAccessLayer
         {
             foreach (Product p in listProducts.ToList())
             {
-                if(p.ProductId == product.ProductId)
+                if (p.ProductId == product.ProductId)
                 {
                     p.ProductId = product.ProductId;
                     p.ProductName = product.ProductName;
@@ -70,7 +78,7 @@ namespace DataAccessLayer
 
         public static Product GetProductById(int id)
         {
-            foreach (Product p in listProducts)
+            foreach (Product p in listProducts.ToList())
             {
                 if (p.ProductId == id)
                 {
@@ -82,3 +90,6 @@ namespace DataAccessLayer
 
     }
 }
+
+
+

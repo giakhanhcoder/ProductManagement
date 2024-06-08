@@ -39,7 +39,7 @@ namespace Services
 
         public Product GetProductById(int id)
         {
-            return iProductRepository.GetProductbYiD(id);
+            return iProductRepository.GetProductbyId(id);
         }
 
 

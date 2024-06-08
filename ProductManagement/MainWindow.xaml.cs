@@ -33,12 +33,12 @@ namespace ProductManagement
         {
             try
             {
-                var caList = iCategoryService.GetCategories();
-                cboCategory.ItemsSource = caList;
+                var catList = iCategoryService.GetCategories();
+                cboCategory.ItemsSource = catList;
                 cboCategory.DisplayMemberPath = "CategoryName";
                 cboCategory.SelectedValuePath = "CategoryId";
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error on load list of categories");
             }
@@ -48,10 +48,10 @@ namespace ProductManagement
         {
             try
             {
-                var proList = iProductService.GetProducts();
-                dgData.ItemsSource = proList;
+                var productList = iProductService.GetProducts();
+                dgData.ItemsSource = productList;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error on load list of products");
             }
@@ -66,21 +66,20 @@ namespace ProductManagement
             LoadCategoryList();
             LoadProductList();
         }
-
         private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 Product product = new Product();
                 product.ProductName = txtProductName.Text;
-                product.UnitPrice = Decimal.Parse(txtPrice.Text);
+                product.UnitPrice = decimal.Parse(txtPrice.Text);
                 product.UnitInStock = short.Parse(txtUnitsInStock.Text);
                 product.CategoryId = Int32.Parse(cboCategory.SelectedValue.ToString());
                 iProductService.SaveProduct(product);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Lỗi", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
             {
@@ -88,13 +87,16 @@ namespace ProductManagement
             }
         }
 
+
         private void dgData_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DataGrid dataGrid = sender as DataGrid;
-            DataGridRow row = (DataGridRow)dataGrid.ItemContainerGenerator
+            DataGridRow row = 
+                (DataGridRow)dataGrid.ItemContainerGenerator
                 .ContainerFromIndex(dataGrid.SelectedIndex);
-            DataGridCell RowColumn = dataGrid.Columns[0]
-                .GetCellContent(row).Parent as DataGridCell;
+
+            DataGridCell RowColumn = 
+                dataGrid.Columns[0].GetCellContent(row).Parent as DataGridCell;
             string id = ((TextBlock)RowColumn.Content).Text;
             Product product = iProductService.GetProductById(Int32.Parse(id));
             txtProductID.Text = product.ProductId.ToString();
@@ -115,12 +117,10 @@ namespace ProductManagement
             {
                 if (txtProductID.Text.Length > 0)
                 {
-
-
                     Product product = new Product();
                     product.ProductId = Int32.Parse(txtProductID.Text);
                     product.ProductName = txtProductName.Text;
-                    product.UnitPrice = Decimal.Parse(txtPrice.Text);
+                    product.UnitPrice = decimal.Parse(txtPrice.Text);
                     product.UnitInStock = short.Parse(txtUnitsInStock.Text);
                     product.CategoryId = Int32.Parse(cboCategory.SelectedValue.ToString());
                     iProductService.UpdateProduct(product);
@@ -148,7 +148,7 @@ namespace ProductManagement
                     Product product = new Product();
                     product.ProductId = Int32.Parse(txtProductID.Text);
                     product.ProductName = txtProductName.Text;
-                    product.UnitPrice = Decimal.Parse(txtPrice.Text);
+                    product.UnitPrice = decimal.Parse(txtPrice.Text);
                     product.UnitInStock = short.Parse(txtUnitsInStock.Text);
                     product.CategoryId = Int32.Parse(cboCategory.SelectedValue.ToString());
                     iProductService.DeleteProduct(product);
@@ -177,6 +177,11 @@ namespace ProductManagement
             txtPrice.Text = "";
             txtUnitsInStock.Text = "";
             cboCategory.SelectedIndex = 0;
+        }
+
+        private void txtProductID_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }

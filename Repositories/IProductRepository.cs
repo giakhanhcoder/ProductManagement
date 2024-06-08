@@ -17,6 +17,6 @@ namespace Repositories
         
         List<Product> GetProducts();
         
-        Product GetProductbYiD(int id);
+        Product GetProductbyId(int id);
     }
 }

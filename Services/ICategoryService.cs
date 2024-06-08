@@ -9,6 +9,6 @@ namespace Services
 {
     public interface ICategoryService
     {
-    List<Category> GetCategories();
-}
+        List<Category> GetCategories();
+    }
 }

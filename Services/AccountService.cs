@@ -13,13 +13,13 @@ namespace Services
         private readonly IAccountRepository iAccountRepository;
 
         public AccountService()
-        {
+        {   
             iAccountRepository = new AccountRepository();
         }
 
         public AccountMember GetAccountById(string accountID)
         {
-            return iAccountRepository.GetAccountMemberById(accountID);
+            return iAccountRepository.GetAccountById(accountID);
         }
     }
 }

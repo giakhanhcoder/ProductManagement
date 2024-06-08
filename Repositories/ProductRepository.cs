@@ -14,10 +14,12 @@ namespace Repositories
 
         public List<Product> GetProducts() => ProductDAO.GetProducts();
 
-        public Product GetProductbYiD(int id) => ProductDAO.GetProductById(id);
+        public Product GetProductbyId(int id) => ProductDAO.GetProductById(id);
 
         public void SaveProduct(Product p) => ProductDAO.SaveProduct(p);
 
         public void UpdateProduct(Product p) => ProductDAO.UpdateProduct(p);
+
+   
     }
 }
