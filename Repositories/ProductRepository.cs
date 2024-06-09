@@ -2,6 +2,7 @@
 using DataAccessLayer;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace Repositories
     {
         public void DeleteProduct(Product p) => ProductDAO.DeleteProduct(p);
 
-        public List<Product> GetProducts() => ProductDAO.GetProducts();
+        public ObservableCollection<Product> GetProducts() => ProductDAO.GetProducts();
 
         public Product GetProductbyId(int id) => ProductDAO.GetProductById(id);
 

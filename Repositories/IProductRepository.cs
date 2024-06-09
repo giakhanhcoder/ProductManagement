@@ -1,6 +1,7 @@
 ﻿using BusinessObjects;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,9 +15,9 @@ namespace Repositories
         void DeleteProduct(Product p);
 
         void UpdateProduct(Product p);
-        
-        List<Product> GetProducts();
-        
+
+        ObservableCollection<Product> GetProducts();
+
         Product GetProductbyId(int id);
     }
 }

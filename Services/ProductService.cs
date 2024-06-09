@@ -19,7 +19,7 @@ namespace Services
 
         public List<Product> GetProducts()
         {
-            return iProductRepository.GetProducts();
+            return iProductRepository.GetProducts().ToList();
         }
 
         public void SaveProduct(Product p)

@@ -1,5 +1,6 @@
 ﻿using BusinessObjects;
 using Services;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,7 +22,6 @@ namespace ProductManagement
 
         private readonly IProductService iProductService;
         private readonly ICategoryService iCategoryService;
-
         public MainWindow()
         {
             InitializeComponent();
@@ -90,20 +90,18 @@ namespace ProductManagement
 
         private void dgData_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            DataGrid dataGrid = sender as DataGrid;
-            DataGridRow row = 
-                (DataGridRow)dataGrid.ItemContainerGenerator
-                .ContainerFromIndex(dataGrid.SelectedIndex);
+            if (dgData.SelectedItem == null)
+                return;
 
-            DataGridCell RowColumn = 
-                dataGrid.Columns[0].GetCellContent(row).Parent as DataGridCell;
-            string id = ((TextBlock)RowColumn.Content).Text;
-            Product product = iProductService.GetProductById(Int32.Parse(id));
-            txtProductID.Text = product.ProductId.ToString();
-            txtProductName.Text = product.ProductName;
-            txtPrice.Text = product.UnitPrice.ToString();
-            txtUnitsInStock.Text = product.UnitInStock.ToString();
-            cboCategory.SelectedValue = product.CategoryId;
+            Product selectProduct = dgData.SelectedItem as Product;
+            if(selectProduct != null)
+            {
+                txtProductID.Text = selectProduct.ProductId.ToString();
+                txtProductName.Text = selectProduct.ProductName;
+                txtPrice.Text = selectProduct.UnitPrice.ToString();
+                txtUnitsInStock.Text = selectProduct.UnitInStock.ToString();
+                cboCategory.SelectedValue = selectProduct.CategoryId;
+            }
         }
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
