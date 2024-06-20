@@ -1,40 +1,42 @@
-﻿    using BusinessObjects;
+﻿using BusinessObjects;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 
 namespace DataAccessLayer
 {
     public class CategoryDAO
     {
+        private static string connectionString = "Server=(local);uid=sa;pwd=123;database=MyStore;Encrypt=True;TrustServerCertificate=True";
+
         public static List<Category> GetCategories()
         {
-            Category beerages = new Category(1, "Beerages");
-            Category condiments = new Category(2, "Condiments");
-            Category confections = new Category(3, "Confections");
-            Category dairy = new Category(4, "Dairy Products");
-            Category grains = new Category(5, "Grains/Cereals");
-            Category meat = new Category(6, "Meat/Poultry");
-            Category produce = new Category(7, "Produce");
-            Category seafood = new Category(8, "Seafood");
+            List<Category> listCategories = new List<Category>();
+            string query = "SELECT CategoryId, CategoryName FROM Categories";
 
-            var listCategories = new List<Category>();
-            try
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                listCategories.Add(beerages);
-                listCategories.Add(condiments);
-                listCategories.Add(confections);
-                listCategories.Add(dairy);
-                listCategories.Add(grains);
-                listCategories.Add(meat);
-                listCategories.Add(produce);
-                listCategories.Add(seafood);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
+                SqlCommand command = new SqlCommand(query, connection);
+
+                try
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        int categoryId = reader.GetInt32(0);
+                        string categoryName = reader.GetString(1);
+                        Category category = new Category(categoryId, categoryName);
+                        listCategories.Add(category);
+                    }
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error: " + ex.Message);
+                }
             }
             return listCategories;
         }

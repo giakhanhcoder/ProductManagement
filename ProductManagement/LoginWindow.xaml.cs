@@ -32,7 +32,7 @@ namespace ProductManagement
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
             AccountMember account = iAccountService.GetAccountById(txtUser.Text);
-            if(account != null && account.MemberPassword.Equals(txtPass.Password)
+            if (account != null && account.MemberPassword.Equals(txtPass.Password)
                 && account.MemberRole == 1)
             {
                 this.Hide();

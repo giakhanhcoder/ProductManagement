@@ -13,7 +13,7 @@ namespace Repositories
     {
         public void DeleteProduct(Product p) => ProductDAO.DeleteProduct(p);
 
-        public ObservableCollection<Product> GetProducts() => ProductDAO.GetProducts();
+        public List<Product> GetProducts() => ProductDAO.GetProducts();
 
         public Product GetProductbyId(int id) => ProductDAO.GetProductById(id);
 

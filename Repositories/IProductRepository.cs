@@ -16,7 +16,7 @@ namespace Repositories
 
         void UpdateProduct(Product p);
 
-        ObservableCollection<Product> GetProducts();
+        List<Product> GetProducts();
 
         Product GetProductbyId(int id);
     }

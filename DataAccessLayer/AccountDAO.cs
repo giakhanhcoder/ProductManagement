@@ -1,22 +1,49 @@
 ﻿using BusinessObjects;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Data.SqlClient;
 
 namespace DataAccessLayer
 {
     public class AccountDAO
     {
+        private static string connectionString = "Server=(local);uid=sa;pwd=123;database=MyStore;Encrypt=True;TrustServerCertificate=True";
+
         public static AccountMember GetAccountById(string accountID)
         {
-            AccountMember accountMember = new AccountMember();
-            if (accountID.Equals("PS0001")) // just for demonstration
+            AccountMember accountMember = null;
+
+            string query = "SELECT MemberId, MemberPassword, MemberRole FROM AccountMember WHERE MemberId = @accountID";
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                accountMember.MemberId = accountID;
-                accountMember.MemberPassword = "@1";
-                accountMember.MemberRole = 1;
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@accountID", accountID);
+
+                try
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        accountMember = new AccountMember
+                        {
+                            MemberId = reader.GetString(0),
+                            MemberPassword = reader.GetString(1),
+                            MemberRole = reader.GetInt32(2)
+                        };
+                    }
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error: " + ex.Message);
+                    // Optionally, rethrow the exception or handle it as needed
+                }
+                finally
+                {
+                    connection.Close();
+                }
             }
             return accountMember;
         }
